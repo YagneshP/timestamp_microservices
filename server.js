@@ -18,14 +18,23 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
-
+//with empty date string means only api/timestamp endpoint
+app.get('/api/timestamp',(req,res)=>{
+	res.json({unix:Date.now() ,utc:Date()});
+})
 
 // your first API endpoint... 
 app.get("/api/timestamp/:date?", function (req, res) {
 	let date = req.params.date;
-	console.log('date:', date);
-	console.log('typeof', typeof date);
-  res.json({unix: 1451001600000, utc:"Fri, 25 Dec 2015 00:00:00 GMT"});
+	let regex = /\d{5,}/
+if(regex.test(date)){
+	res.json({unix: +date, utc: new Date(+date).toUTCString()})
+}else{
+	let dateObject = new Date(date);
+	dateObject.toString === 'Invalid Date' ? 
+	res.json({error: "Invalid Date"}):
+	res.json({unix: dateObject.valueOf(), utc:dateObject.toUTCString()});
+}
 });
 
 
