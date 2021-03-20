@@ -4,7 +4,7 @@
 // init project
 const express = require('express');
 const app = express();
-const PORT= 3000;
+const PORT= process.env.PORT || 3000;
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
