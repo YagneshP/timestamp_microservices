@@ -31,7 +31,7 @@ if(regex.test(date)){
 	res.json({unix: +date, utc: new Date(+date).toUTCString()})
 }else{
 	let dateObject = new Date(date);
-	dateObject.toString === 'Invalid Date' ? 
+	dateObject.toString() === 'Invalid Date' ? 
 	res.json({error: "Invalid Date"}):
 	res.json({unix: dateObject.valueOf(), utc:dateObject.toUTCString()});
 }
